@@ -3,12 +3,16 @@ function isEmail(email) {
     return regex.test(email);
 }
 
+$("#phoneno").on("input", function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+});
+
 $("#submitbutton").click(function () {
-    
     var errormessage = "";
     var missingfield = "";
-    $("#errors").html("");  
-    $("#success").html(""); 
+
+    $("#errors").html("");
+    $("#success").html("");
 
     if ($("#Email").val() == "") {
         missingfield += "<p>Email not filled</p>";
@@ -20,13 +24,15 @@ $("#submitbutton").click(function () {
         missingfield += "<p>Password not filled</p>";
     }
 
-    if (isEmail($("#Email").val()) == false) {
+    if ($("#Email").val() !== "" && isEmail($("#Email").val()) == false) {
         errormessage += "<p>Email id is not valid</p>";
     }
-    if ($.isNumeric($("#phoneno").val()) == false) {
-        errormessage += "<p>Phone No. is not valid</p>";
+
+    if ($("#phoneno").val() !== "" && !/^\d{10}$/.test($("#phoneno").val())) {
+        errormessage += "<p>Phone No. must be exactly 10 digits</p>";
     }
-    if ($("#password").val() != $("#confirmpassword").val()) {
+
+    if ($("#password").val() !== $("#confirmpassword").val()) {
         errormessage += "<p>Password does not match</p>";
     }
 
@@ -36,3 +42,4 @@ $("#submitbutton").click(function () {
         $("#errors").html(errormessage + missingfield);
     }
 });
+
