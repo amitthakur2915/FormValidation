@@ -43,3 +43,13 @@ $("#submitbutton").click(function () {
     }
 });
 
+function togglePassword(id, btn) {
+    const field = document.getElementById(id);
+    if (field.type === "password") {
+        field.type = "text";
+        btn.textContent = "Hide";
+    } else {
+        field.type = "password";
+        btn.textContent = "Show";
+    }
+}
